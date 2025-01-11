@@ -1,137 +1,235 @@
-﻿// Assignment 2 OOP
-using System;
+﻿using System;
 
-namespace Assignment02OOP
+namespace Assignment03OOP
 {
+    public enum SecurityPrivilege
+    {
+        Guest,
+        Developer,
+        Secretary,
+        DBA
+    }
+
+    public class Employee
+    {
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public SecurityPrivilege SecurityLevel { get; private set; }
+        public double Salary { get; private set; }
+        public HiringDate HireDate { get; private set; }
+        private char gender;
+
+        public char Gender
+        {
+            get => gender;
+            set
+            {
+                if (value != 'M' && value != 'F')
+                {
+                    throw new ArgumentException("Gender must be 'M' or 'F'.");
+                }
+                gender = value;
+            }
+        }
+
+        public Employee(int id, string name, SecurityPrivilege securityLevel, double salary, HiringDate hireDate, char gender)
+        {
+            Id = id;
+            Name = name;
+            SecurityLevel = securityLevel;
+            Salary = salary;
+            HireDate = hireDate;
+            Gender = gender;
+        }
+
+        public override string ToString()
+        {
+            return $"ID: {Id}, Name: {Name}, Security Level: {SecurityLevel}, Salary: {String.Format("{0:C}", Salary)}, Hire Date: {HireDate}, Gender: {Gender}";
+        }
+    }
+
+    public class HiringDate
+    {
+        public int Day { get; private set; }
+        public int Month { get; private set; }
+        public int Year { get; private set; }
+
+        public HiringDate(int day, int month, int year)
+        {
+            if (day <= 0 || day > 31 || month <= 0 || month > 12 || year < 1)
+            {
+                throw new ArgumentException("Invalid date values.");
+            }
+            Day = day;
+            Month = month;
+            Year = year;
+        }
+
+        public int CompareTo(HiringDate other)
+        {
+            if (Year != other.Year)
+                return Year - other.Year;
+            if (Month != other.Month)
+                return Month - other.Month;
+            return Day - other.Day;
+        }
+
+        public override string ToString()
+        {
+            return $"{Day}/{Month}/{Year}";
+        }
+    }
+
+    public class EmployeeManagement
+    {
+        private Employee[] employees;
+
+        public EmployeeManagement()
+        {
+            employees = new Employee[3];
+            employees[0] = new Employee(1, "John", SecurityPrivilege.DBA, 1000, new HiringDate(1, 1, 2021), 'M');
+            employees[1] = new Employee(2, "Jane", SecurityPrivilege.Guest, 2000, new HiringDate(2, 2, 2021), 'F');
+            employees[2] = new Employee(3, "Jack", SecurityPrivilege.Secretary, 3000, new HiringDate(3, 3, 2021), 'M');
+        }
+
+        public void SortEmployees()
+        {
+            Array.Sort(employees, (x, y) => x.HireDate.CompareTo(y.HireDate));
+        }
+
+        public void PrintEmployees()
+        {
+            foreach (var employee in employees)
+            {
+                Console.WriteLine(employee);
+            }
+        }
+    }
+
+    public class Book
+    {
+        public string Title { get; private set; }
+        public string Author { get; private set; }
+        public string ISBN { get; private set; }
+
+        public Book(string title, string author, string isbn)
+        {
+            Title = title;
+            Author = author;
+            ISBN = isbn;
+        }
+
+        public override string ToString()
+        {
+            return $"Title: {Title}, Author: {Author}, ISBN: {ISBN}";
+        }
+    }
+
+    public class EBook : Book
+    {
+        public double FileSize { get; private set; }
+
+        public EBook(string title, string author, string isbn, double fileSize) : base(title, author, isbn)
+        {
+            FileSize = fileSize;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", File Size: {FileSize} MB";
+        }
+    }
+
+    public class PrintedBook : Book
+    {
+        public int PageCount { get; private set; }
+
+        public PrintedBook(string title, string author, string isbn, int pageCount) : base(title, author, isbn)
+        {
+            PageCount = pageCount;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", Page Count: {PageCount}";
+        }
+    }
+
     class Program
     {
-        public struct Person
-        {
-            public string Name { get; set; }
-            public int Age { get; set; }
-        }
-
-        public struct Point
-        {
-            public double X { get; set; }
-            public double Y { get; set; }
-        }
-
-        public struct Rectangle
-        {
-            private double width;
-            private double height;
-
-            public double Width
-            {
-                get { return width; }
-                set { width = value; }
-            }
-
-            public double Height
-            {
-                get { return height; }
-                set { height = value; }
-            }
-
-            public double Area()
-            {
-                return width * height;
-            }
-
-            public void Display()
-            {
-                Console.WriteLine($"Width: {width}, Height: {height}, Area: {Area()}");
-            }
-        }
-
         static void Main(string[] args)
         {
-            #region 1. Define a struct "Person" with properties "Name" and "Age". Create an array of three "Person" objects and populate it with data. Then, write a C# program to display the details of all the persons in the array.
-            Person[] persons = new Person[3];
-            for (int i = 0; i < persons.Length; i++)
-            {
-                Console.Write("Enter name: ");
-                string name = Console.ReadLine();
-                Console.Write("Enter age: ");
-                int age = int.Parse(Console.ReadLine());
-                persons[i] = new Person { Name = name, Age = age };
-            }
-
-            foreach (Person person in persons)
-            {
-                Console.WriteLine($"Name: {person.Name}, Age: {person.Age}");
-            }
+            #region Design and implement a Class for the employees in a company.
+            /*
+            Notes:
+            - Employee is identified by an ID, Name, security level, salary, hire date, and Gender.
+            - Restrict the Gender field to M or F (Male or Female).
+            - Assign the following security privileges to the employee (guest, Developer, secretary, and DBA) in a form of Enum.
+            - Provide a string representation of Employee data (override ToString()).
+            - Display employee salary in a currency format (use String.Format()).
+            */
             
+            EmployeeManagement employeeManagement = new EmployeeManagement();
+            employeeManagement.PrintEmployees();
             #endregion
 
-            #region 2. Create a struct called "Point" to represent a 2D point with properties "X" and "Y". Write a C# program that takes two points as input from the user and calculates the distance between them.
-            Point point1 = new Point();
-            Point point2 = new Point();
+            #region Develop a Class to represent the Hiring Date Data.
+            /*
+            Notes:
+            - Consists of fields to hold the day, month, and year.
+            */
 
-            Console.Write("Enter X1: ");
-            point1.X = double.Parse(Console.ReadLine());
-            Console.Write("Enter Y1: ");
-            point1.Y = double.Parse(Console.ReadLine());
-
-            Console.Write("Enter X2: ");
-            point2.X = double.Parse(Console.ReadLine());
-            Console.Write("Enter Y2: ");
-            point2.Y = double.Parse(Console.ReadLine());
-
-            double distance = Math.Sqrt(Math.Pow(point2.X - point1.X, 2) + Math.Pow(point2.Y - point1.Y, 2));
-            Console.WriteLine($"Distance between the two points: {distance}");
-            
+            HiringDate hireDate = new HiringDate(1, 1, 2021);
+            Console.WriteLine($"Hire Date Example: {hireDate}");
             #endregion
 
-            #region 3. Create a struct called "Person" with properties "Name" and "Age". Write a C# program that takes details of 3 persons as input from the user and displays the name and age of the oldest person.
-            Person person1 = new Person();
-            Person person2 = new Person();
-            Person person3 = new Person();
+            #region Create an array of Employees with size three and populate it with a DBA, Guest, and Security Officer with full permissions.
+            /*
+            Notes:
+            - Include a DBA, Guest, and a security officer who has full permissions.
+            - Implement all necessary member functions (Getters, Setters).
+            - Define all necessary constructors for the class.
+            - Allow no runtime errors if the user inputs invalid data.
+            - Write necessary properties instead of setters and getters.
+            */
 
-            Console.Write("Enter name of person 1: ");
-            person1.Name = Console.ReadLine();
-            Console.Write("Enter age of person 1: ");
-            person1.Age = int.Parse(Console.ReadLine());
+            Employee[] employees = new Employee[3]
 
-            Console.Write("Enter name of person 2: ");
-            person2.Name = Console.ReadLine();
-            Console.Write("Enter age of person 2: ");
-            person2.Age = int.Parse(Console.ReadLine());
+            employees[0] = new Employee(1, "John", SecurityPrivilege.DBA, 1000, new HiringDate(1, 1, 2021), 'M');
+            employees[1] = new Employee(2, "Jane", SecurityPrivilege.Guest, 2000, new HiringDate(2, 2, 2021), 'F');
+            employees[2] = new Employee(3, "Jack", SecurityPrivilege.Secretary, 3000, new HiringDate(3, 3, 2021), 'M');
 
-            Console.Write("Enter name of person 3: ");
-            person3.Name = Console.ReadLine();
-            Console.Write("Enter age of person 3: ");
-            person3.Age = int.Parse(Console.ReadLine());
-
-            Person oldestPerson = person1;
-
-            if (person2.Age > oldestPerson.Age)
+            foreach (var employee in employees)
             {
-                oldestPerson = person2;
+                Console.WriteLine(employee);
             }
 
-            if (person3.Age > oldestPerson.Age)
-            {
-                oldestPerson = person3;
-            }
-
-            Console.WriteLine($"The oldest person is {oldestPerson.Name} with age {oldestPerson.Age}");
-            
             #endregion
 
-            #region 4. Create a struct named Rectangle that represents a rectangle with encapsulated fields "width" and "height". Implement properties and methods to calculate area and display details.
-            Rectangle rectangle = new Rectangle();
-            Console.Write("Enter width: ");
-            rectangle.Width = double.Parse(Console.ReadLine());
-            Console.Write("Enter height: ");
-            rectangle.Height = double.Parse(Console.ReadLine());
+            #region Sort the employees based on their hire date and print the sorted array.
+            /*
+            Notes:
+            - Count how many times Boxing and Unboxing process occurs while sorting.
+            */
 
-            double area = rectangle.Area();
-            Console.WriteLine($"Area of the rectangle: {area}");
+            employeeManagement.SortEmployees();
+            Console.WriteLine("Sorted Employees by Hire Date:");
+            employeeManagement.PrintEmployees();
+            #endregion
 
-            rectangle.Display();
-            
+            #region Design a program for a library management system.
+            /*
+            Notes:
+            - Book is the base class with properties like Title, Author, and ISBN.
+            - EBook and PrintedBook are derived classes with additional properties like FileSize for EBook and PageCount for PrintedBook.
+            - Demonstrate how inheritance simplifies the design.
+            */
+
+            Book printedBook = new PrintedBook("C# in Depth", "Jon Skeet", "123-456", 900);
+            Book eBook = new EBook("Learn Python", "Mark Lutz", "789-012", 1.5);
+
+            Console.WriteLine($"Printed Book: {printedBook}");
+            Console.WriteLine($"EBook: {eBook}");
             #endregion
         }
     }
