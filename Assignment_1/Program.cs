@@ -193,7 +193,7 @@ namespace Assignment03OOP
             - Write necessary properties instead of setters and getters.
             */
 
-            Employee[] employees = new Employee[3]
+            Employee[] employees = new Employee[3];
 
             employees[0] = new Employee(1, "John", SecurityPrivilege.DBA, 1000, new HiringDate(1, 1, 2021), 'M');
             employees[1] = new Employee(2, "Jane", SecurityPrivilege.Guest, 2000, new HiringDate(2, 2, 2021), 'F');

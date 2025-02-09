@@ -8,24 +8,19 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\eyous\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Youssef Emad\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\Youssef\\Routes_Course\\OOP\\Ass_2\\C43-G02-OOP02\\Assignment_1\\Assignment_5.csproj",
+      "projectUniqueName": "D:\\Youssef\\Projects\\Routes_Course\\C# _OOP\\Ass_3\\C43-G02-OOP03\\Assignment_1\\Assignment_5.csproj",
       "projectName": "Assignment_5",
-      "projectPath": "H:\\Youssef\\Routes_Course\\OOP\\Ass_2\\C43-G02-OOP02\\Assignment_1\\Assignment_5.csproj",
-      "packagesPath": "C:\\Users\\eyous\\.nuget\\packages\\",
-      "outputPath": "H:\\Youssef\\Routes_Course\\OOP\\Ass_2\\C43-G02-OOP02\\Assignment_1\\obj\\",
+      "projectPath": "D:\\Youssef\\Projects\\Routes_Course\\C# _OOP\\Ass_3\\C43-G02-OOP03\\Assignment_1\\Assignment_5.csproj",
+      "packagesPath": "C:\\Users\\Youssef Emad\\.nuget\\packages\\",
+      "outputPath": "D:\\Youssef\\Projects\\Routes_Course\\C# _OOP\\Ass_3\\C43-G02-OOP03\\Assignment_1\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\eyous\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Youssef Emad\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -72,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
